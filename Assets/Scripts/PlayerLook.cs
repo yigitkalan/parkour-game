@@ -14,6 +14,10 @@ public class PlayerLook : MonoBehaviour
 
 
     Camera playerCam;
+    private void Awake()
+    {
+        playerCam = GetComponentInChildren<Camera>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +29,20 @@ public class PlayerLook : MonoBehaviour
     void Update()
     {
         GetRotationInput();
+        SetRotationInput();
     }
     void GetRotationInput()
     {
         mouseXInput = Input.GetAxisRaw("Mouse X");
         mouseYInput = Input.GetAxisRaw("Mouse Y");
 
-        yRotation += mouseYInput * mouseSens * Time.deltaTime;
-        xRotation += mouseXInput * mouseSens * Time.deltaTime;
+        //x input for y rotation since horizantal mouse movement will determine
+        // the rotation amount arount y axis
+        yRotation += mouseXInput * mouseSens * Time.deltaTime;
+        //and vise verca
+        xRotation -= mouseYInput * mouseSens * Time.deltaTime;
+        //limit the updated x rotation
+        xRotation = Mathf.Clamp(xRotation, -90, 90);
     }
     void SetRotationInput()
     {

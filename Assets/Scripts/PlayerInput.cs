@@ -12,6 +12,9 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector]
     public bool isSprinting;
 
+    private KeyCode jumpKey = KeyCode.Space;
+    private KeyCode sprintKey = KeyCode.LeftShift;
+
     public event Action onJump = delegate { };
     // Start is called before the first frame update
     void Start()
@@ -34,18 +37,18 @@ public class PlayerInput : MonoBehaviour
     }
     void CheckSprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(sprintKey))
         {
             isSprinting = true;
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(sprintKey))
         {
             isSprinting = false;
         }
     }
     void CheckJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(jumpKey))
         {
             onJump();
         }

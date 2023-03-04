@@ -7,14 +7,19 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     private Vector3 movementDirection;
-    private float currentMoveSpeed;
+    private float currentSpeedLimit;
     [SerializeField]
-    private float walkSpeed = 10f;
+    private float movementForce = 10f;
     [SerializeField]
-    private float sprintSpeed = 20f;
+    private float groundDrag = 6f;
     [SerializeField]
-    private float moveDrag = 3f;
     private float moveMultiplier = 1000f;
+    [SerializeField]
+    private float walkLimit = 8f;
+    [SerializeField]
+    private float sprintLimit = 16f;
+
+
 
 
 
@@ -22,12 +27,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float jumpForce = 100f;
     private bool grounded;
+    [SerializeField]
+    private float gravityMultiplier = 40f;
+
+
 
     [Header("GroundCheck")]
     [SerializeField]
     private float playerHeight;
     [SerializeField]
-    private float checkOffset = 0.4f;
+    private float checkOffset = 0.2f;
     [SerializeField]
     private LayerMask groundLayer;
 
@@ -45,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        rb.drag = moveDrag;
+        rb.drag = groundDrag;
     }
 
     // Update is called once per frame
@@ -55,21 +64,29 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        SetMoveSpeed();
-        Move();
+        SetSpeedLimit();
         CheckGrounded();
-        //UPDATE GRAVITY FOR QUICKFALL
+        Move();
+        IncreaseGravity();
     }
+
     void Move()
     {
-        print(transform.right);
         movementDirection = playerInput._horizontalInput * transform.right + playerInput._verticalInput * transform.forward;
         movementDirection = movementDirection.normalized;
-        rb.AddForce(movementDirection * Time.deltaTime * currentMoveSpeed * moveMultiplier, ForceMode.Acceleration);
+        rb.AddForce(movementDirection * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
+
     }
-    void SetMoveSpeed()
+    void SetSpeedLimit()
     {
-        currentMoveSpeed = playerInput.isSprinting ? sprintSpeed : walkSpeed;
+        currentSpeedLimit = playerInput.isSprinting ? sprintLimit : walkLimit;
+        Vector3 horizontalSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        if (horizontalSpeed.magnitude > currentSpeedLimit)
+        {
+            horizontalSpeed = horizontalSpeed.normalized * currentSpeedLimit;
+            rb.velocity = new Vector3(horizontalSpeed.x, rb.velocity.y, horizontalSpeed.z);
+        }
+
     }
     void Jump()
     {
@@ -80,7 +97,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckGrounded()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + checkOffset, groundLayer);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + checkOffset, groundLayer);
+    }
+
+    void IncreaseGravity()
+    {
+        rb.AddForce(Vector3.down * gravityMultiplier * Time.deltaTime, ForceMode.Force);
     }
 
 }
