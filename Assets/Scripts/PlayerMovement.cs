@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     private Vector3 movementDirection;
-    private float currentSpeedLimit;
     [SerializeField]
     private float movementForce = 10f;
     [SerializeField]
@@ -15,12 +14,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float moveMultiplier = 1000f;
     [SerializeField]
+    private Transform orientation;
+
+
+
+    [Header("Speed Check")]
+    [SerializeField]
     private float walkLimit = 8f;
     [SerializeField]
     private float sprintLimit = 16f;
-
-
-
+    private float currentSpeedLimit;
 
 
     [Header("Jumping")]
@@ -72,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        movementDirection = playerInput._horizontalInput * transform.right + playerInput._verticalInput * transform.forward;
+        movementDirection = playerInput._horizontalInput * orientation.right + playerInput._verticalInput * orientation.forward;
         movementDirection = movementDirection.normalized;
         rb.AddForce(movementDirection * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
 

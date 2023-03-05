@@ -12,13 +12,11 @@ public class PlayerLook : MonoBehaviour
     private float xRotation;
     private float yRotation;
 
+    [SerializeField]
+    private Transform orientation;
 
-    Camera playerCam;
-    private void Awake()
-    {
-        playerCam = GetComponentInChildren<Camera>();
-    }
-    // Start is called before the first frame update
+    [SerializeField]
+    private Transform playerCam;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -47,8 +45,8 @@ public class PlayerLook : MonoBehaviour
     void SetRotationInput()
     {
         //player will rotate along the y axis to rotate itself and the camera
-        transform.localRotation = Quaternion.Euler(0, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         //camera will do the up down look by rotating arount the x axis
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        playerCam.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     }
 }
