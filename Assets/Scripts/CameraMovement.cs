@@ -7,7 +7,6 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private Transform playerPos;
 
-    // Update is called once per frame
     private void LateUpdate()
     {
         transform.position = playerPos.position;

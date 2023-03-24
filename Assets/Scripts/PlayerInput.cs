@@ -34,6 +34,7 @@ public class PlayerInput : MonoBehaviour
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
+        
     }
     void CheckSprint()
     {

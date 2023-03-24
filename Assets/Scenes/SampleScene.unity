@@ -1282,7 +1282,7 @@ MonoBehaviour:
   walkLimit: 6
   sprintLimit: 10
   jumpForce: 15
-  gravityMultiplier: 1000
+  gravityMultiplier: 1200
   playerHeight: 2
   checkOffset: 0.4
   groundLayer:
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6efb89afb8382b796f1c4918370ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSens: 80
+  mouseSens: 100
   orientation: {fileID: 642112958}
   playerCam: {fileID: 1227671785}
 --- !u!1 &1858212403

@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float gravityMultiplier = 40f;
 
+    [Header("SlopeCheck")]
+    private bool isOnSlope;
+
 
 
     [Header("GroundCheck")]
