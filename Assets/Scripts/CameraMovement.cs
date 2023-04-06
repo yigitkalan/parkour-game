@@ -12,3 +12,5 @@ public class CameraMovement : MonoBehaviour
         transform.position = playerPos.position;
     }
 }
+
+

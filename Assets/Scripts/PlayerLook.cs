@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
@@ -33,6 +34,7 @@ public class PlayerLook : MonoBehaviour
     {
         mouseXInput = Input.GetAxisRaw("Mouse X");
         mouseYInput = Input.GetAxisRaw("Mouse Y");
+
 
         //x input for y rotation since horizantal mouse movement will determine
         // the rotation amount arount y axis
