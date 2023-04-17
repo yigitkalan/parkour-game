@@ -35,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("SlopeCheck")]
     private bool isOnSlope;
+    private RaycastHit slopeHit;
+    private Vector3 slopeMoveDir;
 
 
 
@@ -66,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckSlope();
+        print(isOnSlope);
 
     }
     private void FixedUpdate()
@@ -76,11 +80,29 @@ public class PlayerMovement : MonoBehaviour
         IncreaseGravity();
     }
 
+    void CheckSlope(){
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight/2+checkOffset)){
+            if(slopeHit.normal != Vector3.up){
+                isOnSlope = true;
+                slopeMoveDir = Vector3.ProjectOnPlane(movementDirection, slopeHit.normal);
+            }
+        }
+
+        else{
+            isOnSlope = false;
+        }
+    }
+
     void Move()
     {
         movementDirection = playerInput._horizontalInput * orientation.right + playerInput._verticalInput * orientation.forward;
         movementDirection = movementDirection.normalized;
-        rb.AddForce(movementDirection * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
+        if(isOnSlope){
+            rb.AddForce(slopeMoveDir * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
+        }
+        else{
+            rb.AddForce(movementDirection * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
+        }
 
     }
     void SetSpeedLimit()
