@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private float checkOffset = 0.2f;
     [SerializeField]
     private LayerMask groundLayer;
+    private bool isInAir;
 
 
     private PlayerInput playerInput;
@@ -82,14 +83,18 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckSlope(){
         if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight/2+checkOffset)){
+            isInAir = false;
             if(slopeHit.normal != Vector3.up){
                 isOnSlope = true;
                 slopeMoveDir = Vector3.ProjectOnPlane(movementDirection, slopeHit.normal);
             }
+            else{
+                isOnSlope =  false;
+            }
         }
-
         else{
-            isOnSlope = false;
+            isOnSlope =  false;
+            isInAir = true;
         }
     }
 
@@ -130,7 +135,9 @@ public class PlayerMovement : MonoBehaviour
 
     void IncreaseGravity()
     {
-        rb.AddForce(Vector3.down * gravityMultiplier * Time.deltaTime, ForceMode.Force);
+        if(isInAir && rb.velocity.y < 1){
+            rb.AddForce(Vector3.down * gravityMultiplier * Time.deltaTime, ForceMode.Force);
+        }
     }
 
 }
