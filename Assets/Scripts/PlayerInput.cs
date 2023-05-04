@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour
     private KeyCode sprintKey = KeyCode.LeftShift;
 
     public event Action onJump = delegate { };
+    public event Action onJumpRelease = delegate { };
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +53,9 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(jumpKey))
         {
             onJump();
+        }
+        if(Input.GetKeyUp(jumpKey)){
+            onJumpRelease();
         }
     }
 }
