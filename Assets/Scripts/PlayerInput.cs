@@ -5,57 +5,57 @@ using System;
 
 public class PlayerInput : MonoBehaviour
 {
-    [HideInInspector]
-    public float _horizontalInput;
-    [HideInInspector]
-    public float _verticalInput;
-    [HideInInspector]
-    public bool isSprinting;
+  [HideInInspector]
+  public float _horizontalInput;
+  [HideInInspector]
+  public float _verticalInput;
+  [HideInInspector]
+  public bool isSprinting;
 
-    private KeyCode jumpKey = KeyCode.Space;
-    private KeyCode sprintKey = KeyCode.LeftShift;
+  private KeyCode jumpKey = KeyCode.Space;
+  private KeyCode sprintKey = KeyCode.LeftShift;
 
-    public event Action onJump = delegate { };
-    public event Action onJumpRelease = delegate { };
-    // Start is called before the first frame update
-    void Start()
-    {
-        isSprinting = false;
+  public event Action onJump = delegate { };
+  public event Action onJumpRelease = delegate { };
+  // Start is called before the first frame update
+  void Start()
+  {
+    isSprinting = false;
 
-    }
+  }
 
-    // Update is called once per frame
-    void Update()
+  // Update is called once per frame
+  void Update()
+  {
+    GetMoveInput();
+    CheckSprint();
+    CheckJump();
+  }
+  void GetMoveInput()
+  {
+    _horizontalInput = Input.GetAxisRaw("Horizontal");
+    _verticalInput = Input.GetAxisRaw("Vertical");
+
+  }
+  void CheckSprint()
+  {
+    if (Input.GetKeyDown(sprintKey))
     {
-        GetMoveInput();
-        CheckSprint();
-        CheckJump();
+      isSprinting = true;
     }
-    void GetMoveInput()
+    if (Input.GetKeyUp(sprintKey))
     {
-        _horizontalInput = Input.GetAxisRaw("Horizontal");
-        _verticalInput = Input.GetAxisRaw("Vertical");
-        
+      isSprinting = false;
     }
-    void CheckSprint()
+  }
+  void CheckJump()
+  {
+    if (Input.GetKeyDown(jumpKey) )
     {
-        if (Input.GetKeyDown(sprintKey))
-        {
-            isSprinting = true;
-        }
-        if (Input.GetKeyUp(sprintKey))
-        {
-            isSprinting = false;
-        }
+      onJump();
     }
-    void CheckJump()
-    {
-        if (Input.GetKeyDown(jumpKey))
-        {
-            onJump();
-        }
-        if(Input.GetKeyUp(jumpKey)){
-            onJumpRelease();
-        }
+    if(!Input.GetKey(jumpKey)){
+      onJumpRelease();
     }
+  }
 }

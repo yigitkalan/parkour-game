@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
   [Header("Jumping")]
   [SerializeField] private float jumpForce = 100f;
   private bool grounded;
-  private bool isJumping;
   [SerializeField] private float gravityMultiplier = 40f;
   bool jumpCancelled;
 
