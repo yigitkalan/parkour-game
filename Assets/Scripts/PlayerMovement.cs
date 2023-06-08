@@ -70,10 +70,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (limitSpeed)
             SetSpeedLimit();
-        print(currentSpeedLimit);
         CheckGrounded();
         Move();
-        IncreaseGravity();
+        if(rb.useGravity)
+            IncreaseGravity();
     }
 
     void CheckSlope()
@@ -138,13 +138,14 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(slideTime*0.5f);
         limitSpeed = true;
         yield return new WaitForSeconds(slideTime*0.5f);
-        transform.localScale = Vector3.one;
     }
     void ResetSlide()
     {
-        if (limitSpeed == true && Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
-            canSlide = true;
+            transform.localScale = Vector3.one;
+            if(limitSpeed == true)
+                canSlide = true;
         }
     }
 

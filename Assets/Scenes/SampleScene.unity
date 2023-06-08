@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18029143, g: 0.22572419, b: 0.30693057, a: 1}
+  m_IndirectSpecularColor: {r: 0.18029156, g: 0.22572505, b: 0.30693024, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -570,7 +570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505946755}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: 14.21, y: 6.32, z: -30.83}
+  m_LocalPosition: {x: 14.21, y: 6.32, z: -30.07}
   m_LocalScale: {x: 20.416786, y: 0.89956963, z: 6.222773}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -854,14 +854,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 20.13, z: 0}
+  m_LocalRotation: {x: 0.41752636, y: 0.14026146, z: -0.06540492, w: 0.8953886}
+  m_LocalPosition: {x: -0.39, y: 20.79, z: 1.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 377.806, z: 0}
 --- !u!1 &731022650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,6 +1767,7 @@ GameObject:
   - component: {fileID: 1636405185}
   - component: {fileID: 1636405186}
   - component: {fileID: 1636405187}
+  - component: {fileID: 1636405188}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Untagged
@@ -1782,7 +1783,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636405179}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 1.5
   m_Drag: 3
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1905,7 +1906,7 @@ MonoBehaviour:
   walkLimit: 6
   sprintLimit: 10
   airLimit: 25
-  jumpForce: 12
+  jumpForce: 15
   gravityMultiplier: 1200
   slideForce: 20
   slideTime: 2
@@ -1929,6 +1930,23 @@ MonoBehaviour:
   mouseSens: 100
   orientation: {fileID: 642112958}
   playerCam: {fileID: 1227671785}
+--- !u!114 &1636405188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636405179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52e7a45f92cce9b2f808a0a53ed996cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orientation: {fileID: 642112958}
+  minWallRunHeight: 1.5
+  wallCheckDistance: 0.7
+  wallRunGravityForce: 10
+  rb: {fileID: 0}
 --- !u!1 &1713182845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,7 +1974,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713182845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.21, y: 3.5, z: -27.38}
+  m_LocalPosition: {x: 14.21, y: 3.5, z: -26.5}
   m_LocalScale: {x: 20.416786, y: 0.89956963, z: 6.222773}
   m_ConstrainProportionsScale: 0
   m_Children: []
