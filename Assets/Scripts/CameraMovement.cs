@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
     private void LateUpdate()
     {
         transform.position = playerPos.position;
+
     }
 }
 
