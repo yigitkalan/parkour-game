@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
+    [SerializeField] WallRun wr;
+    
     [SerializeField]
     private float mouseSens = 10f;
 
@@ -20,14 +22,14 @@ public class PlayerLook : MonoBehaviour
     private Transform playerCam;
     void Start()
     {
+        wr = GetComponent<WallRun>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        GetRotationInput();
+    { GetRotationInput();
         SetRotationInput();
     }
     void GetRotationInput()
@@ -49,6 +51,6 @@ public class PlayerLook : MonoBehaviour
         //player will rotate along the y axis to rotate itself and the camera
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
         //camera will do the up down look by rotating arount the x axis
-        playerCam.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        playerCam.transform.rotation = Quaternion.Euler(xRotation, yRotation, wr.tilt);
     }
 }
