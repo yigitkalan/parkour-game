@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             SetSpeedLimit();
         CheckGrounded();
         Move();
-        if(rb.useGravity)
+        if (rb.useGravity)
             IncreaseGravity();
     }
 
@@ -124,28 +124,35 @@ public class PlayerMovement : MonoBehaviour
     }
     void Slide()
     {
-        if (canSlide && grounded && rb.velocity.magnitude > walkLimit - 1)
+        if (canSlide && grounded)
         {
-            StartCoroutine(SlideC());
+            if (rb.velocity.magnitude > walkLimit * 0.5f && transform.localScale.y == 1)
+                StartCoroutine(SlideC());
+            transform.localScale = new Vector3(1, 0.7f, 1);
         }
     }
     IEnumerator SlideC()
     {
         limitSpeed = false;
         canSlide = false;
-        transform.localScale = new Vector3(1,0.7f,1);
-        rb.velocity = rb.velocity + movementDirection * slideForce;
-        yield return new WaitForSeconds(slideTime*0.5f);
+        if (isOnSlope)
+        {
+            rb.velocity = rb.velocity + slopeMoveDir * slideForce;
+        }
+        else
+        {
+            rb.velocity = rb.velocity + movementDirection * slideForce;
+        }
+        yield return new WaitForSeconds(slideTime * 0.5f);
         limitSpeed = true;
-        yield return new WaitForSeconds(slideTime*0.5f);
+        yield return new WaitForSeconds(slideTime * 0.5f);
+        canSlide = true;
     }
     void ResetSlide()
     {
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             transform.localScale = Vector3.one;
-            if(limitSpeed == true)
-                canSlide = true;
         }
     }
 

@@ -2,31 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Wall{
+    LeftWall,
+    RightWall,
+    None,
+}
+
 public class WallRun : MonoBehaviour
 {
     [SerializeField] Transform orientation;
+    [SerializeField] Rigidbody rb;
+
+
     [SerializeField] float minWallRunHeight = 1.5f;
     [SerializeField] float wallCheckDistance = 0.7f;
     [SerializeField] float wallRunGravityForce = 10;
     [SerializeField] float wallRunJumpForce = 10;
-    [SerializeField] Rigidbody rb;
 
     bool leftWall;
     bool rightWall;
 
     RaycastHit leftHit;
     RaycastHit rightHit;
+    Wall lastWall = Wall.None;
+    
 
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        print(lastWall);
         CheckWall();
+        ManageWallJump();
+    }
+
+    void ManageWallJump(){
         if (CanWallRun())
         {
             if (leftWall)
@@ -68,18 +82,30 @@ public class WallRun : MonoBehaviour
         rb.AddForce(wallRunGravityDir, ForceMode.Force);
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            if(leftWall){
-                Vector3 wallRunJumpDirection = transform.up*1.5f + leftHit.normal;
+            if(leftWall && lastWall != Wall.LeftWall){
+                lastWall = Wall.LeftWall;
+                Vector3 wallRunJumpDirection = transform.up + leftHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
+                StartCoroutine(ResetLastWall());
             }
-            if(rightWall){
-                Vector3 wallRunJumpDirection = transform.up*1.5f + rightHit.normal;
+            if(rightWall && lastWall != Wall.RightWall){
+                lastWall = Wall.RightWall;
+                Vector3 wallRunJumpDirection = transform.up + rightHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
+                StartCoroutine(ResetLastWall());
             }
         }
     }
+
+    //this method is to keep player to stop spamming jump on the same wall
+    IEnumerator ResetLastWall(){
+        yield return new WaitForSeconds(2);
+        lastWall = Wall.None;
+
+    }
+
     void StopWallRun() {
         rb.useGravity = true;
     }
