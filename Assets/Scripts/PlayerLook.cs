@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] WallRun wr;
+    WallRun wr;
     
     [SerializeField]
     private float mouseSens = 10f;

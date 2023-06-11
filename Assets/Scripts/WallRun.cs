@@ -19,6 +19,7 @@ public class WallRun : MonoBehaviour
     [SerializeField] float wallCheckDistance = 0.7f;
     [SerializeField] float wallRunGravityForce = 10;
     [SerializeField] float wallRunJumpForce = 10;
+    [SerializeField] LayerMask wallLayer;
     bool leftWall;
     bool rightWall;
     RaycastHit leftHit;
@@ -72,8 +73,8 @@ public class WallRun : MonoBehaviour
 
     void CheckWall()
     {
-        leftWall = Physics.Raycast(transform.position, -orientation.right, out leftHit, wallCheckDistance);
-        rightWall = Physics.Raycast(transform.position, orientation.right, out rightHit, wallCheckDistance);
+        leftWall = Physics.Raycast(transform.position, -orientation.right, out leftHit, wallCheckDistance,wallLayer);
+        rightWall = Physics.Raycast(transform.position, orientation.right, out rightHit, wallCheckDistance,wallLayer);
     }
 
     bool CanWallRun()
@@ -100,14 +101,14 @@ public class WallRun : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             if(leftWall && lastWall != Wall.LeftWall){
                 lastWall = Wall.LeftWall;
-                Vector3 wallRunJumpDirection = transform.up + leftHit.normal;
+                Vector3 wallRunJumpDirection = transform.up*1.5f+ leftHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
                 StartCoroutine(ResetLastWall());
             }
             if(rightWall && lastWall != Wall.RightWall){
                 lastWall = Wall.RightWall;
-                Vector3 wallRunJumpDirection = transform.up + rightHit.normal;
+                Vector3 wallRunJumpDirection = transform.up*1.5f + rightHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
                 StartCoroutine(ResetLastWall());
