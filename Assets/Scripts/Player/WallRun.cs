@@ -13,6 +13,7 @@ public class WallRun : MonoBehaviour
 {
     [SerializeField] Transform orientation;
     [SerializeField] Rigidbody rb;
+    [SerializeField] PlayerLook _playerLook;
 
 
     [Header("WallRuning")]
@@ -27,21 +28,10 @@ public class WallRun : MonoBehaviour
     RaycastHit rightHit;
     Wall lastWall = Wall.None;
 
-
-    [Header("Camera")]
-    [SerializeField] Camera cam;
-    [SerializeField] float normalFov;
-    [SerializeField] float wallRunFov;
-    [SerializeField] float fovTime;
-    [SerializeField] float camTilt;
-    [SerializeField] float camTiltTime;
-
-    public float tilt { get; private set; }
-
-
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _playerLook = GetComponent<PlayerLook>();
     }
 
     void Update()
@@ -90,13 +80,17 @@ public class WallRun : MonoBehaviour
     {
         rb.useGravity = false;
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, fovTime * Time.deltaTime);
+        _playerLook.ChangeToFastFov();
 
         Vector3 wallRunGravityDir = Vector3.down * wallRunGravityForce * Time.deltaTime;
         rb.AddForce(wallRunGravityDir, ForceMode.Force);
-        if (leftWall || rightWall)
+        if (leftWall)
         {
-            TiltCam();
+            _playerLook.TiltCam(Wall.LeftWall);
+        }
+        if (rightWall)
+        {
+            _playerLook.TiltCam(Wall.RightWall);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -118,12 +112,6 @@ public class WallRun : MonoBehaviour
         }
     }
 
-    public void TiltCam()
-    {
-        tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
-    }
-
-
     // this method is to keep player from spamming jump on the same wall
     void ResetLastWall(){
         if(!(leftWall || rightWall)){
@@ -135,8 +123,7 @@ public class WallRun : MonoBehaviour
     void StopWallRun()
     {
         rb.useGravity = true;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, normalFov, fovTime * Time.deltaTime);
-        tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
-
+        _playerLook.ResetFov();
+        _playerLook.ResetCameraTilt();
     }
 }

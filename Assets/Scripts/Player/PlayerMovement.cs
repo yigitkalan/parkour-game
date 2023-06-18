@@ -43,9 +43,11 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerInput playerInput;
     private Rigidbody rb;
+    PlayerLook _playerLook;
 
     private void Awake()
     {
+        _playerLook = GetComponent<PlayerLook>();
         playerInput = GetComponent<PlayerInput>();
         playerInput.onJump += Jump;
         playerInput.onJumpRelease += CutJump;
@@ -128,8 +130,8 @@ public class PlayerMovement : MonoBehaviour
         if (canSlide && grounded)
         {
             if (rb.velocity.magnitude >= walkLimit - 1  && transform.localScale.y == 1)
-                
                 StartCoroutine(SlideC());
+            //this is for crouching part
             transform.localScale = new Vector3(1, 0.7f, 1);
         }
     }
