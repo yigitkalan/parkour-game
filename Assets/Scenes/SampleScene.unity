@@ -837,8 +837,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565315919}
   m_LocalRotation: {x: -0.50000066, y: -0.49999934, z: -0.49999923, w: 0.5000008}
-  m_LocalPosition: {x: 26, y: 12.92, z: -15.66}
-  m_LocalScale: {x: 13.459795, y: 0.89956963, z: 12.8954525}
+  m_LocalPosition: {x: 26, y: 12.92, z: -15.57}
+  m_LocalScale: {x: 15.035937, y: 0.89956963, z: 19.206488}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 739027734}
@@ -1031,8 +1031,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604640518}
   m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: 35.36, y: 11.55, z: -11.09}
-  m_LocalScale: {x: 14.286372, y: 0.89956963, z: 12.146644}
+  m_LocalPosition: {x: 35.36, y: 11.55, z: -8.7}
+  m_LocalScale: {x: 14.286372, y: 0.89956963, z: 17.955168}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 739027734}
@@ -2946,8 +2946,8 @@ MonoBehaviour:
   moveMultiplier: 1000
   orientation: {fileID: 642112958}
   walkLimit: 6
-  sprintLimit: 9
-  airLimit: 30
+  sprintLimit: 10
+  airLimit: 14
   jumpForce: 15
   gravityMultiplier: 1600
   slideForce: 16
@@ -3453,7 +3453,7 @@ Transform:
   m_GameObject: {fileID: 1973870005}
   m_LocalRotation: {x: -0.50000066, y: -0.49999934, z: -0.49999923, w: 0.5000008}
   m_LocalPosition: {x: 43.02, y: 7.1, z: -18.7}
-  m_LocalScale: {x: 20.416786, y: 0.89956963, z: 15.972741}
+  m_LocalScale: {x: 20.416786, y: 0.89956963, z: 24.642744}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 739027734}

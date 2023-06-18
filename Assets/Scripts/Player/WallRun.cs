@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Wall{
+public enum Wall
+{
     LeftWall,
     RightWall,
     None,
@@ -34,8 +35,8 @@ public class WallRun : MonoBehaviour
     [SerializeField] float fovTime;
     [SerializeField] float camTilt;
     [SerializeField] float camTiltTime;
-    
-    public float tilt {get; private set;}
+
+    public float tilt { get; private set; }
 
 
     void Start()
@@ -47,10 +48,12 @@ public class WallRun : MonoBehaviour
     {
         print(lastWall);
         CheckWall();
+        ResetLastWall();
         ManageWallJump();
     }
 
-    void ManageWallJump(){
+    void ManageWallJump()
+    {
         if (CanWallRun())
         {
             if (leftWall)
@@ -74,8 +77,8 @@ public class WallRun : MonoBehaviour
 
     void CheckWall()
     {
-        leftWall = Physics.Raycast(transform.position, -orientation.right, out leftHit, wallCheckDistance,wallLayer);
-        rightWall = Physics.Raycast(transform.position, orientation.right, out rightHit, wallCheckDistance,wallLayer);
+        leftWall = Physics.Raycast(transform.position, -orientation.right, out leftHit, wallCheckDistance, wallLayer);
+        rightWall = Physics.Raycast(transform.position, orientation.right, out rightHit, wallCheckDistance, wallLayer);
     }
 
     bool CanWallRun()
@@ -87,50 +90,53 @@ public class WallRun : MonoBehaviour
     {
         rb.useGravity = false;
 
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, fovTime*Time.deltaTime);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, wallRunFov, fovTime * Time.deltaTime);
 
         Vector3 wallRunGravityDir = Vector3.down * wallRunGravityForce * Time.deltaTime;
         rb.AddForce(wallRunGravityDir, ForceMode.Force);
-        if(leftWall){
-            TiltCam();
-        }
-        if(rightWall){
+        if (leftWall || rightWall)
+        {
             TiltCam();
         }
 
-        if(Input.GetKeyDown(KeyCode.Space)){
-            if(leftWall && lastWall != Wall.LeftWall){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (leftWall && lastWall != Wall.LeftWall)
+            {
                 lastWall = Wall.LeftWall;
-                Vector3 wallRunJumpDirection = transform.up*1.5f+ leftHit.normal;
+                Vector3 wallRunJumpDirection = transform.up * 1.5f + leftHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
-                StartCoroutine(ResetLastWall());
             }
-            if(rightWall && lastWall != Wall.RightWall){
+            if (rightWall && lastWall != Wall.RightWall)
+            {
                 lastWall = Wall.RightWall;
-                Vector3 wallRunJumpDirection = transform.up*1.5f + rightHit.normal;
+                Vector3 wallRunJumpDirection = transform.up * 1.5f + rightHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
-                StartCoroutine(ResetLastWall());
             }
         }
     }
 
-    public void TiltCam(){
-        tilt = Mathf.Lerp(tilt,-camTilt,camTiltTime*Time.deltaTime);
+    public void TiltCam()
+    {
+        tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
     }
 
-    //this method is to keep player to stop spamming jump on the same wall
-    IEnumerator ResetLastWall(){
-        yield return new WaitForSeconds(2);
-        lastWall = Wall.None;
 
+    // this method is to keep player from spamming jump on the same wall
+    void ResetLastWall(){
+        if(!(leftWall || rightWall)){
+           lastWall = Wall.None; 
+        }
     }
 
-    void StopWallRun() {
+
+    void StopWallRun()
+    {
         rb.useGravity = true;
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, normalFov, fovTime*Time.deltaTime);
-        tilt = Mathf.Lerp(tilt,0,camTiltTime*Time.deltaTime);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, normalFov, fovTime * Time.deltaTime);
+        tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
 
     }
 }
