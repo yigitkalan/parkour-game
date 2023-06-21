@@ -20,11 +20,12 @@ public class PlayerInput : MonoBehaviour
 
     private KeyCode jumpKey = KeyCode.Space;
     private KeyCode sprintKey = KeyCode.LeftShift;
-    private KeyCode slideKey = KeyCode.LeftControl;
+    private KeyCode slideKey = KeyCode.C;
 
     public event Action onJump = delegate { };
     public event Action onJumpRelease = delegate { };
     public event Action onSlide = delegate { };
+    public event Action onSlideCancel = delegate { };
     // Start is called before the first frame update
     void Start() { isSprinting = false; }
 
@@ -75,5 +76,10 @@ public class PlayerInput : MonoBehaviour
         {
             onSlide();
         }
+        if (Input.GetKeyUp(slideKey))
+        {
+            onSlideCancel();
+        }
+
     }
 }

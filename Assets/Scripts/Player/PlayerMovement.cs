@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         playerInput.onJump += Jump;
         playerInput.onJumpRelease += CutJump;
         playerInput.onSlide += Slide;
+        playerInput.onSlideCancel += SlideReset;
     }
 
     void Start()
@@ -66,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckSlope();
-        SlideReset();
 
     }
     private void FixedUpdate()
@@ -123,19 +123,20 @@ public class PlayerMovement : MonoBehaviour
             horizontalSpeed = horizontalSpeed.normalized * currentSpeedLimit;
             rb.velocity = new Vector3(horizontalSpeed.x, rb.velocity.y, horizontalSpeed.z);
         }
-
     }
     void Slide()
     {
         if (canSlide && grounded)
         {
-            if (rb.velocity.magnitude >= sprintLimit - 1  && transform.localScale.y == 1)
+            if (rb.velocity.magnitude >= sprintLimit - 1 && transform.localScale.y == 1)
                 StartCoroutine(SlideC());
             //this is for crouching part
-            if(!crouching){
+            if (!crouching)
+            {
+                playerHeight = playerHeight * 0.5f;
                 transform.localScale = new Vector3(1, 0.5f, 1);
                 crouching = true;
-                rb.AddForce(-transform.up*jumpForce, ForceMode.Impulse);
+                rb.AddForce(-transform.up * jumpForce * 0.5f, ForceMode.Impulse);
             }
         }
     }
@@ -151,18 +152,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = rb.velocity + movementDirection * slideForce;
         }
-        yield return new WaitForSeconds(slideTime * 0.5f);
-        yield return new WaitForSeconds(slideTime * 0.5f);
+        yield return new WaitForSeconds(slideTime);
         limitSpeed = true;
         canSlide = true;
     }
     void SlideReset()
     {
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            transform.localScale = Vector3.one;
-            crouching = false;
-        }
+        transform.localScale = Vector3.one;
+        crouching = false;
+        playerHeight = playerHeight * 2;
     }
 
     void Jump()
@@ -183,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void CheckGrounded()
     {
-        Debug.DrawRay(transform.position, Vector3.down * playerHeight * (0.5f + checkOffset), Color.red);
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + checkOffset, groundLayer);
     }
 

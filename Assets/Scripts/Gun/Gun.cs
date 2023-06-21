@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Gun : MonoBehaviour, IEquippable
+public abstract class Gun : MonoBehaviour, ICanBeEquipped
 {
+    public GunData _gunData;
+
+    protected IInputManager _inputManager;
+
+    public void SetInputManager(IInputManager inputManager)
+    {
+        _inputManager = inputManager;
+    }
     public abstract void Shoot();
 
     public abstract void Reload();
-
-    public abstract void Equip(GameObject player);
-
-    public abstract void Drop(GameObject player);
 }
