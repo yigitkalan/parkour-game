@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum Wall
@@ -36,7 +34,6 @@ public class WallRun : MonoBehaviour
 
     void Update()
     {
-        print(lastWall);
         CheckWall();
         ResetLastWall();
         ManageWallJump();
@@ -95,27 +92,34 @@ public class WallRun : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (leftWall && lastWall != Wall.LeftWall)
-            {
-                lastWall = Wall.LeftWall;
-                Vector3 wallRunJumpDirection = transform.up * 1.5f + leftHit.normal;
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
-            }
-            if (rightWall && lastWall != Wall.RightWall)
-            {
-                lastWall = Wall.RightWall;
-                Vector3 wallRunJumpDirection = transform.up * 1.5f + rightHit.normal;
-                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-                rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
-            }
+            WallJump();
+        }
+    }
+
+    void WallJump()
+    {
+        if (leftWall && lastWall != Wall.LeftWall)
+        {
+            lastWall = Wall.LeftWall;
+            Vector3 wallRunJumpDirection = transform.up * 1.5f + leftHit.normal;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
+        }
+        if (rightWall && lastWall != Wall.RightWall)
+        {
+            lastWall = Wall.RightWall;
+            Vector3 wallRunJumpDirection = transform.up * 1.5f + rightHit.normal;
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(wallRunJumpDirection * wallRunJumpForce, ForceMode.Impulse);
         }
     }
 
     // this method is to keep player from spamming jump on the same wall
-    void ResetLastWall(){
-        if(!(leftWall || rightWall)){
-           lastWall = Wall.None; 
+    void ResetLastWall()
+    {
+        if (!(leftWall || rightWall))
+        {
+            lastWall = Wall.None;
         }
     }
 
@@ -123,7 +127,7 @@ public class WallRun : MonoBehaviour
     void StopWallRun()
     {
         rb.useGravity = true;
-        _playerLook.ResetFov();
         _playerLook.ResetCameraTilt();
+        _playerLook.ResetFov();
     }
 }

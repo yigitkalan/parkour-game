@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 146054014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.77, y: 3.63, z: -11.94}
-  m_LocalScale: {x: 0.5119228, y: 0.5696363, z: 0.5911674}
+  m_LocalScale: {x: 0.71633464, y: 0.5696363, z: 0.7108788}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 141270384}
@@ -1222,7 +1222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676167074}
   m_LocalRotation: {x: -0, y: 0.3421349, z: -0, w: 0.9396509}
-  m_LocalPosition: {x: 37.537, y: 17.28, z: -21.252}
+  m_LocalPosition: {x: 37.537, y: 18.470001, z: -21.252}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2152,7 +2152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202553410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.5, y: 16.1, z: -22.67}
+  m_LocalPosition: {x: 35.5, y: 17.29, z: -22.67}
   m_LocalScale: {x: 7.130359, y: 0.89956963, z: 5.67965}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2950,7 +2950,7 @@ MonoBehaviour:
   airLimit: 14
   jumpForce: 15
   gravityMultiplier: 1600
-  slideForce: 16
+  slideForce: 12
   slideTime: 1
   playerHeight: 2
   checkOffset: 0.4
@@ -2970,8 +2970,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSens: 100
+  cameraHolder: {fileID: 1227671784}
+  playerCam: {fileID: 963194227}
+  camTilt: 12
+  camTiltTime: 10
+  normalFov: 90
+  wallRunFov: 110
+  fovTime: 10
   orientation: {fileID: 642112958}
-  playerCam: {fileID: 1227671785}
 --- !u!114 &1636405188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2986,19 +2992,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: {fileID: 642112958}
   rb: {fileID: 0}
+  _playerLook: {fileID: 1636405187}
   minWallRunHeight: 1.5
   wallCheckDistance: 1.2
-  wallRunGravityForce: 300
+  wallRunGravityForce: 400
   wallRunJumpForce: 13
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
-  cam: {fileID: 963194227}
-  normalFov: 80
-  wallRunFov: 110
-  fovTime: 10
-  camTilt: 8
-  camTiltTime: 10
 --- !u!1 &1713182845
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class PlayerLook : MonoBehaviour
     [SerializeField]
     private float mouseSens = 10f;
     private float xRotation;
-    private PlayerInput _playerInput;
     private float yRotation;
 
 
@@ -25,6 +24,7 @@ public class PlayerLook : MonoBehaviour
 
     [SerializeField]
     private Transform orientation;
+    private PlayerInput _playerInput;
 
     void Start()
     {

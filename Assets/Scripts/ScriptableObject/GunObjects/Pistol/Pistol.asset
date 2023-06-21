@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::NonAutomaticGun
-  name: 
-  damage: 0
-  currentAmmo: 0
-  magSize: 0
-  reloadTime: 0
+  name: Pistol
+  damage: 8
+  currentAmmo: 12
+  magSize: 12
+  reloadTime: 1
   isReloading: 0

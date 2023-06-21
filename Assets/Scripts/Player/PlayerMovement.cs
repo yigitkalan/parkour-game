@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sliding")]
     [SerializeField] float slideForce;
     [SerializeField] float slideTime = 2;
+    bool crouching = false;
     bool limitSpeed = true;
     bool canSlide = true;
 
@@ -65,8 +66,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckSlope();
-        print(grounded);
-        ResetSlide();
+        SlideReset();
 
     }
     private void FixedUpdate()
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
             SetSpeedLimit();
         CheckGrounded();
         Move();
-        if (rb.useGravity)
+        if (rb.useGravity && !grounded)
             IncreaseGravity();
     }
 
@@ -129,10 +129,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canSlide && grounded)
         {
-            if (rb.velocity.magnitude >= walkLimit - 1  && transform.localScale.y == 1)
+            if (rb.velocity.magnitude >= sprintLimit - 1  && transform.localScale.y == 1)
                 StartCoroutine(SlideC());
             //this is for crouching part
-            transform.localScale = new Vector3(1, 0.7f, 1);
+            if(!crouching){
+                transform.localScale = new Vector3(1, 0.5f, 1);
+                crouching = true;
+                rb.AddForce(-transform.up*jumpForce, ForceMode.Impulse);
+            }
         }
     }
     IEnumerator SlideC()
@@ -148,15 +152,16 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = rb.velocity + movementDirection * slideForce;
         }
         yield return new WaitForSeconds(slideTime * 0.5f);
-        limitSpeed = true;
         yield return new WaitForSeconds(slideTime * 0.5f);
+        limitSpeed = true;
         canSlide = true;
     }
-    void ResetSlide()
+    void SlideReset()
     {
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             transform.localScale = Vector3.one;
+            crouching = false;
         }
     }
 
