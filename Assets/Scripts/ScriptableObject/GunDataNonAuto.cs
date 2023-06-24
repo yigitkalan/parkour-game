@@ -4,7 +4,6 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName="gun",menuName="Weapon/NonAutomaticGun")]
-public class NonAutomaticGun : GunData
+public class GunDataNonAuto : GunData
 {
-
 }

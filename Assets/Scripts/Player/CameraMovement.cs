@@ -11,7 +11,6 @@ public class CameraMovement : MonoBehaviour
     {
         Application.targetFrameRate = 300;
     }
-
     private void LateUpdate()
     {
         transform.position = playerPos.position;
