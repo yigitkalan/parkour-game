@@ -6,5 +6,4 @@ using UnityEngine;
 [CreateAssetMenu(fileName="gun",menuName="Weapon/AutomaticGun")]
 public class GunDataAuto : GunData
 {
-    public int fireRate;
 }

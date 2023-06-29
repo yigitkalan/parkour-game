@@ -373,6 +373,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}
+--- !u!1 &7997051525657697367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4405003705270259005, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}
+  m_PrefabInstance: {fileID: 6042296305479012714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2114022299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7997051525657697367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1ea4f21d698b4e4a1d90aac70b7bdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7997051525939452692 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4405003704980638334, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}
@@ -383,6 +400,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4405003704980638335, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}
   m_PrefabInstance: {fileID: 6042296305479012714}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7997051526587946701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4405003704072030119, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}
+  m_PrefabInstance: {fileID: 6042296305479012714}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &251468103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7997051526587946701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d8358942cb68fe899491d3697e9378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camHolderLocation: {fileID: 7997051525939452693}
+  _gunData: {fileID: 11400000, guid: 336f4301a348bff9daa2f3d7f69231f3, type: 2}
 --- !u!20 &7997051527285456527 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4405003703642451941, guid: 1e1bf23b30e124c4da37c1ad6b660e2b, type: 3}

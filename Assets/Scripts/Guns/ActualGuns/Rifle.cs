@@ -1,24 +1,23 @@
 using UnityEngine;
 
-public class Pistol : NonAutoGun
+public class Rifle : AutoGun
 {
     RaycastHit hitInfo;
     public override void Reload()
     {
-        // isReloading =  true;
     }
 
     public override void Shoot()
     {
+        //this takes the firerate check part from parent
         if(!CanShoot()){
             return;
         }
 
-
         Debug.DrawRay(camHolderLocation.position, camHolderLocation.forward * _gunData.range, Color.red, 3);
         if (GetHitInfo())
         {
-            print(hitInfo.transform.gameObject.name);
+            // print(hitInfo.transform.gameObject.name);
         }
     }
     bool GetHitInfo()

@@ -1,6 +1,8 @@
+using UnityEngine;
+
 public abstract class AutoGun : Gun
 {
     void Start(){
-        SetInputManager(new InputManagerNonAuto());
+        SetInputManager(new InputManagerAuto());
     }
 }

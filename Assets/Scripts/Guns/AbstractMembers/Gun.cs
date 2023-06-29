@@ -2,6 +2,10 @@ using UnityEngine;
 
 public abstract class Gun : MonoBehaviour, ICanBeEquipped
 {
+
+    protected float nextTimeToFire;
+    protected bool isReloading;
+
     [SerializeField]
     protected Transform camHolderLocation;
 
@@ -16,5 +20,15 @@ public abstract class Gun : MonoBehaviour, ICanBeEquipped
     public abstract void Shoot();
 
     public abstract void Reload();
+
+    public bool CanShoot()
+    {
+        if(Time.time < nextTimeToFire)
+
+            return false;
+
+        nextTimeToFire = Time.time + 1f / _gunData.fireRate;
+        return true;
+    }
 
 }
