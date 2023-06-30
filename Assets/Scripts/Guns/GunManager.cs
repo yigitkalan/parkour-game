@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GunManager : MonoBehaviour
@@ -16,6 +17,10 @@ public class GunManager : MonoBehaviour
     {
         if(currentGun._inputManager.IsShooting()){
             currentGun.Shoot();
+            currentGun.transform.DOShakeRotation(0.1f, 0.8f, 10, 90, false);
+        }
+        else{
+            currentGun.transform.DOLocalRotate(Vector3.zero, 0.1f);
         }
         
     }

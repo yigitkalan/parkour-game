@@ -3,6 +3,8 @@ using UnityEngine;
 public class Pistol : NonAutoGun
 {
     RaycastHit hitInfo;
+    [SerializeField]
+    ParticleSystem muzzleFlash;
     public override void Reload()
     {
         // isReloading =  true;
@@ -14,7 +16,7 @@ public class Pistol : NonAutoGun
             return;
         }
 
-
+        muzzleFlash.Play();
         Debug.DrawRay(camHolderLocation.position, camHolderLocation.forward * _gunData.range, Color.red, 3);
         if (GetHitInfo())
         {

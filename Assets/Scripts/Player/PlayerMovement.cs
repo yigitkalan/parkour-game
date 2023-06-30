@@ -1,8 +1,44 @@
 using System.Collections;
 using UnityEngine;
 
+enum PlayerState
+{
+    Idle,
+    Walking,
+    Running,
+    Jumping,
+    Falling,
+    Sliding,
+    OnSlope,
+}
+
 public class PlayerMovement : MonoBehaviour
 {
+
+    public bool IsRunning
+    {
+        get { return grounded && playerInput.isSprinting; }
+    }
+
+    public bool IsWalking
+    {
+        get { return grounded && !playerInput.isSprinting && movementDirection.magnitude > 0; }
+    }
+
+    public bool IsFalling
+    {
+        get { return rb.velocity.y < 0 && !grounded; }
+    }
+
+    public bool IsSliding
+    {
+        get { return !canSlide; }
+    }
+    public bool IsOnSlope
+    {
+        get { return isOnSlope; }
+    }
+
     [Header("Movement")]
     [SerializeField] private float movementForce = 10f;
     private Vector3 movementDirection;
@@ -104,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = playerInput._horizontalInput * orientation.right + playerInput._verticalInput * orientation.forward;
         movementDirection = movementDirection.normalized;
         if (isOnSlope)
+
         {
             rb.AddForce(slopeMoveDir * Time.deltaTime * movementForce * moveMultiplier, ForceMode.Acceleration);
         }
@@ -186,11 +223,11 @@ public class PlayerMovement : MonoBehaviour
 
     void IncreaseGravity()
     {
+
         if (rb.velocity.y < 1)
         {
             rb.AddForce(Vector3.down * gravityMultiplier * Time.deltaTime, ForceMode.Force);
+
         }
     }
-
 }
-
