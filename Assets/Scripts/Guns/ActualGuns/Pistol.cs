@@ -17,9 +17,17 @@ public class Pistol : NonAutoGun
         }
 
         muzzleFlash.Play();
-        Debug.DrawRay(camHolderLocation.position, camHolderLocation.forward * _gunData.range, Color.red, 3);
+
+        //if we hit something
         if (GetHitInfo())
         {
+            if(hitInfo.transform.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                hitInfo.rigidbody.AddForce(-hitInfo.normal * _gunData.damage * _bulletHitMultiplier * Time.deltaTime, ForceMode.Impulse);
+            }
+
+            GameObject bulletHitEffect = Instantiate(_bulletHitEffect, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            Destroy(bulletHitEffect, 0.5f);
             print(hitInfo.transform.gameObject.name);
         }
     }

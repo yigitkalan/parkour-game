@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
@@ -60,6 +57,8 @@ public class PlayerLook : MonoBehaviour
     public void TiltCam(Wall whichWall){
         if(whichWall == Wall.LeftWall){
             currentTilt = Mathf.Lerp(currentTilt, -camTilt, camTiltTime * Time.deltaTime);
+
+
         }
         else if( whichWall == Wall.RightWall){
             currentTilt = Mathf.Lerp(currentTilt, camTilt, camTiltTime * Time.deltaTime);

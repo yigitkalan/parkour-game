@@ -1,17 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-enum PlayerState
-{
-    Idle,
-    Walking,
-    Running,
-    Jumping,
-    Falling,
-    Sliding,
-    OnSlope,
-}
-
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -48,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Speed Check")]
     [SerializeField] private float walkLimit = 8f;
+    [SerializeField] private float crouchLimit = 4f;
     [SerializeField] private float sprintLimit = 16f;
     [SerializeField] private float airLimit = 25;
     private float currentSpeedLimit;
@@ -153,6 +143,8 @@ public class PlayerMovement : MonoBehaviour
     void SetSpeedLimit()
     {
         if (!grounded) currentSpeedLimit = airLimit;
+        //if currently not sliding but crouching
+        else if(canSlide && crouching ) currentSpeedLimit = crouchLimit;
         else currentSpeedLimit = playerInput.isSprinting ? sprintLimit : walkLimit;
         Vector3 horizontalSpeed = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         if (horizontalSpeed.magnitude > currentSpeedLimit)

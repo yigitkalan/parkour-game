@@ -11,6 +11,13 @@ public abstract class Gun : MonoBehaviour, ICanBeEquipped
 
     public GunData _gunData;
 
+    [SerializeField]
+    protected float _bulletHitMultiplier = 20;
+
+    [SerializeField]
+    protected GameObject _bulletHitEffect;
+
+
     public InputManager _inputManager;
     public void SetInputManager(InputManager inputManager)
     {
